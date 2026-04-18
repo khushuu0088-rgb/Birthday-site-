@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For BUBU ❤️</title>
+<meta charset="UTF-8">
+
+<style>
+body {
+  margin:0;
+  text-align:center;
+  font-family: Arial;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+
+#lockScreen {
+  position:absolute;
+  top:40%;
+  width:100%;
+}
+
+input {
+  padding:10px;
+  font-size:18px;
+}
+
+button {
+  padding:10px 20px;
+  font-size:18px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+#main {
+  display:none;
+}
+
+#typing {
+  margin-top:20px;
+  font-size:18px;
+  width:85%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+img {
+  width:220px;
+  border-radius:20px;
+  margin-top:10px;
+}
+
+.heart {
+  position:absolute;
+  color:red;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+
+canvas {
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+#countdown {
+  margin-top:10px;
+  font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOCK -->
+<div id="lockScreen">
+  <h2>Enter Secret Password 💖</h2>
+  <input id="pass" type="password">
+  <br>
+  <button onclick="check()">Unlock</button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <h1>🎂 Happy Birthday BUBU 🎂</h1>
+  <div id="countdown"></div>
+  <button onclick="start()">Tap for Magic 💖</button>
+  <div id="typing"></div>
+  <img id="slide">
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<script>
+
+// PASSWORD
+function check(){
+  var p = document.getElementById("pass").value;
+  if(p === "LIHAN1401"){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("main").style.display="block";
+  } else {
+    alert("Wrong Password 😢");
+  }
+}
+
+// COUNTDOWN
+var countDate = new Date("June 1, 2026 00:00:00").getTime();
+setInterval(function(){
+  var now = new Date().getTime();
+  var gap = countDate - now;
+
+  var d = Math.floor(gap/(1000*60*60*24));
+  var h = Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  var m = Math.floor((gap%(1000*60*60))/(1000*60));
+  var s = Math.floor((gap%(1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML =
+  "⏳ " + d + "d " + h + "h " + m + "m " + s + "s";
+},1000);
+
+// MESSAGE
+var text = `TO MY ONE AND ONLY HANDSOME BUBU ❤️  
+A HAPPIEST BIRTHDAY NICK 🐺  
+INSHALLAH ALLAH APKO HUMESA KHUSH AUR HEALTHY RAKHE  
+APKO DUNIYA KI HAR WOH CHIZ MILE JISKI AAP DUA KARTE HO (LARKIYON KO CHHOR KE 😏)  
+
+LARKI MAIN EK HI KAAFI HUN APKI JAAN LENE MAIN AUR APKE LIYE JAAN DENE KE LIYE 💖  
+
+AAP HUMESA HASTE RAHO  
+THU THU THU NA APKO NA APKE HASI KO KABHI NAZAR NA LAGE 🧿  
+
+AT LAST YOU KNOW I LOVE YOU TO THE MOON AND BACK 🌙  
+AND MAYBE WE STAY TOGETHER TILL OUR LAST BREATH ❤️  
+
+MY ANGERS ARE TEMPORARY BUT MY LOVE FOR YOU IS ETERNAL 💞  
+
+JUST LOVE ME LITTLE MORE FARHAN  
+DON'T LET YOUR EGO AND ATTITUDE COME IN OUR RELATIONSHIP  
+
+JUST DO HARDWORK AND MAKE YOURSELF PROUD 💪  
+
+I AM ALWAYS WITH YOU WHETHER YOU ARE RICH OR POOR  
+PERFECT OR IMPERFECT IT DOESN’T MATTER 💖  
+
+I LOVE YOU ALWAYS ❤️  
+
+ONCE AGAIN HAPPY HAPPIEST BIRTHDAY MY LOVE 🎂  
+RADHAKRISHNAJI WILL ALWAYS BLESS YOU ✨  
+ALWAYS KEEP SMILING 😊`;
+
+var i=0;
+
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type,25);
+  }
+}
+
+// SLIDESHOW (YOUR PHOTOS ADDED)
+var images=[
+  "IMG_1.jpg",
+  "IMG_2.jpg",
+  "IMG_3.jpg",
+  "IMG_4.jpg"
+];
+
+var index=0;
+
+function slide(){
+  document.getElementById("slide").src=images[index];
+  index=(index+1)%images.length;
+}
+
+// START
+function start(){
+  document.getElementById("music").play();
+  type();
+  setInterval(slide,2000);
+
+  for(let i=0;i<50;i++){
+    let heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.classList.add("heart");
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(heart);
+  }
+
+  fireworks();
+}
+
+// FIREWORKS
+function fireworks(){
+  var canvas=document.getElementById("fireworks");
+  var ctx=canvas.getContext("2d");
+
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  setInterval(function(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    for(let i=0;i<60;i++){
+      ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
+      ctx.beginPath();
+      ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,2,0,Math.PI*2);
+      ctx.fill();
+    }
+  },100);
+}
+
+</script>
+
+</body>
+</html>
